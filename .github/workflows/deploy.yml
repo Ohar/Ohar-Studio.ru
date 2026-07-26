@@ -21,9 +21,7 @@ jobs:
     env:
       DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
       DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-      DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
-      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-      REPOSITORY_URL: https://github.com/Ohar/Ohar-Studio.ru.git
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
     steps:
       - name: Checkout
@@ -32,27 +30,22 @@ jobs:
       - name: Normalize deployment settings
         shell: bash
         run: |
-          NORMALIZED_PASSWORD="$(printf '%s' "$DEPLOY_PASSWORD" | tr -d '\r\n')"
-          echo "::add-mask::$NORMALIZED_PASSWORD"
           {
             printf 'DEPLOY_HOST=%s\n' "$(printf '%s' "$DEPLOY_HOST" | tr -d '\r\n')"
             printf 'DEPLOY_USER=%s\n' "$(printf '%s' "$DEPLOY_USER" | tr -d '\r\n')"
-            printf 'DEPLOY_PASSWORD=%s\n' "$NORMALIZED_PASSWORD"
-            printf 'DEPLOY_PATH=%s\n' "$(printf '%s' "${DEPLOY_PATH:-/var/www/ohar-studio.ru/current}" | tr -d '\r\n')"
           } >> "$GITHUB_ENV"
 
       - name: Validate deployment settings
         shell: bash
         run: |
           missing=0
-          for name in DEPLOY_HOST DEPLOY_USER DEPLOY_PASSWORD; do
+          for name in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY; do
             if [ -z "${!name}" ]; then
               echo "::error::Missing required GitHub Actions secret: $name"
               missing=1
             fi
           done
           test "$missing" -eq 0
-          test -n "$DEPLOY_PATH"
 
       - name: Build static site
         shell: bash
@@ -68,41 +61,15 @@ jobs:
           test -s dist/assets/neon-shift-hero.png
           grep -qi '<title>Neon Shift — Ohar Studio</title>' dist/index.html
 
-      - name: Install SSH deploy tools
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-
-      - name: Trust deployment host
+      - name: Configure SSH
         shell: bash
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
       - name: Deploy repository commit
         shell: bash
-        run: |
-          sshpass -p "$DEPLOY_PASSWORD" ssh "$DEPLOY_USER@$DEPLOY_HOST" "DEPLOY_PATH='$DEPLOY_PATH' GITHUB_SHA='$GITHUB_SHA' REPOSITORY_URL='$REPOSITORY_URL' bash -s" <<'REMOTE'
-          set -euo pipefail
-          DEPLOY_PATH="${DEPLOY_PATH:-/var/www/ohar-studio.ru/current}"
-          RELEASE_PATH="$(dirname "$DEPLOY_PATH")/releases/$GITHUB_SHA"
-          REPOSITORY_PATH="$(dirname "$DEPLOY_PATH")/repository.git"
-
-          if [ ! -d "$REPOSITORY_PATH" ]; then
-            git clone --bare "$REPOSITORY_URL" "$REPOSITORY_PATH"
-          fi
-          git --git-dir="$REPOSITORY_PATH" fetch --prune origin master
-          git --git-dir="$REPOSITORY_PATH" cat-file -e "$GITHUB_SHA^{commit}"
-
-          mkdir -p "$RELEASE_PATH"
-          git --git-dir="$REPOSITORY_PATH" archive "$GITHUB_SHA" index.html assets | tar -x -C "$RELEASE_PATH"
-          git --git-dir="$REPOSITORY_PATH" show "$GITHUB_SHA:infra/nginx/ohar-studio.ru.conf" > /tmp/ohar-studio.ru.conf
-          test -s "$RELEASE_PATH/index.html"
-          test -s "$RELEASE_PATH/assets/neon-shift-hero.png"
-          install -m 0644 /tmp/ohar-studio.ru.conf /etc/nginx/sites-available/ohar-studio.ru
-          ln -sfn /etc/nginx/sites-available/ohar-studio.ru /etc/nginx/sites-enabled/ohar-studio.ru
-          nginx -t
-          ln -sfn "$RELEASE_PATH" "$DEPLOY_PATH.tmp"
-          mv -Tf "$DEPLOY_PATH.tmp" "$DEPLOY_PATH"
-          systemctl reload nginx
-          rm -f /tmp/ohar-studio.ru.conf
-          REMOTE
+        run: ssh "$DEPLOY_USER@$DEPLOY_HOST" "sudo /usr/local/sbin/deploy-ohar-studio '$GITHUB_SHA'"

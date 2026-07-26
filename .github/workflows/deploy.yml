@@ -43,9 +43,14 @@ jobs:
       - name: Validate deployment settings
         shell: bash
         run: |
-          test -n "$DEPLOY_HOST"
-          test -n "$DEPLOY_USER"
-          test -n "$DEPLOY_PASSWORD"
+          missing=0
+          for name in DEPLOY_HOST DEPLOY_USER DEPLOY_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing required GitHub Actions secret: $name"
+              missing=1
+            fi
+          done
+          test "$missing" -eq 0
           test -n "$DEPLOY_PATH"
 
       - name: Build static site

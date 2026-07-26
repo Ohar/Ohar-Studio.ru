@@ -4,24 +4,260 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070916">
-  <title>Ohar Studio</title>
+  <meta name="description" content="Neon Shift — скоростная аркада от Ohar Studio. Играйте во ВКонтакте или Telegram.">
+  <meta property="og:title" content="Neon Shift — Ohar Studio">
+  <meta property="og:description" content="Уклоняйтесь от препятствий, собирайте кристаллы и ускоряйтесь. Игра доступна во ВКонтакте и Telegram.">
+  <meta property="og:image" content="https://ohar-studio.ru/assets/neon-shift-hero.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ohar-studio.ru/">
+  <title>Neon Shift — Ohar Studio</title>
   <style>
-    :root { color-scheme: dark; }
+    :root {
+      color-scheme: dark;
+      --bg: #050712;
+      --panel: rgba(11, 16, 40, 0.82);
+      --text: #f7f8ff;
+      --muted: #aab3d5;
+      --cyan: #35f2ff;
+      --pink: #ff2e68;
+    }
+
     * { box-sizing: border-box; }
-    body { min-height: 100vh; margin: 0; display: grid; place-items: center; background: #070916; color: #f5f7ff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
-    main { width: min(680px, calc(100vw - 32px)); padding: 40px 0; }
-    h1 { margin: 0 0 12px; font-size: clamp(34px, 8vw, 72px); line-height: 0.95; letter-spacing: 0; }
-    p { max-width: 520px; margin: 0 0 28px; color: #9aa6cf; font-size: 18px; line-height: 1.55; }
-    a { display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; border: 1px solid rgba(53, 242, 255, 0.45); border-radius: 8px; color: #35f2ff; text-decoration: none; font-weight: 700; }
-    small { display: block; margin-top: 48px; color: #596486; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 72% 28%, rgba(54, 67, 185, 0.32), transparent 38rem),
+        radial-gradient(circle at 20% 85%, rgba(0, 225, 239, 0.12), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(rgba(78, 104, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(78, 104, 255, 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 82%);
+      content: "";
+    }
+
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 88px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand {
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4effa5;
+      box-shadow: 0 0 18px #4effa5;
+      content: "";
+    }
+
+    main { padding: clamp(40px, 7vw, 88px) 0 64px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.45fr);
+      align-items: center;
+      gap: clamp(36px, 6vw, 82px);
+    }
+
+    .copy, .art { min-width: 0; }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(56px, 8.4vw, 112px);
+      font-style: italic;
+      font-weight: 900;
+      letter-spacing: -0.075em;
+      line-height: 0.78;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: 0.16em;
+      background: linear-gradient(110deg, #16f0ff 10%, #35f2ff 55%, #6e8cff 100%);
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 36px rgba(53, 242, 255, 0.14);
+    }
+
+    .lead {
+      max-width: 530px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.65;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 10px;
+      color: white;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .button:hover { transform: translateY(-2px); }
+    .button:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+    .button-vk { background: #0077ff; box-shadow: 0 12px 34px rgba(0, 119, 255, 0.25); }
+    .button-vk:hover { box-shadow: 0 16px 42px rgba(0, 119, 255, 0.38); }
+    .button-tg { background: rgba(255, 255, 255, 0.06); }
+    .button-tg:hover { border-color: var(--cyan); box-shadow: 0 12px 34px rgba(53, 242, 255, 0.12); }
+
+    .art {
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+      border: 1px solid rgba(95, 119, 255, 0.26);
+      border-radius: 20px;
+      background: #080b1d;
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.48), 0 0 70px rgba(49, 64, 185, 0.18);
+      transform: perspective(1200px) rotateY(-2deg);
+    }
+
+    .art::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      content: "";
+      pointer-events: none;
+    }
+
+    .art img { display: block; width: 100%; height: auto; }
+
+    .platforms {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 30px;
+      color: #7782a9;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .platforms span + span { padding-left: 18px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px 0 36px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: #687294;
+      font-size: 13px;
+    }
+
+    @media (max-width: 880px) {
+      .hero { display: flex; flex-direction: column; align-items: stretch; }
+      .art { order: -1; transform: none; }
+      h1 { font-size: clamp(60px, 17vw, 100px); }
+      .lead { margin-top: 26px; }
+    }
+
+    @media (max-width: 520px) {
+      header { min-height: 72px; }
+      .status { font-size: 10px; }
+      main { padding-top: 28px; }
+      .art { border-radius: 12px; }
+      .actions { flex-direction: column; }
+      .button { width: 100%; }
+      .platforms { flex-wrap: wrap; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Ohar Studio</h1>
-    <p>Игры и интерактивные проекты. Сайт скоро откроется, а Neon Shift уже готовится к запуску в Telegram.</p>
-    <a href="https://t.me/neon_shift_bot">Neon Shift</a>
-    <small>ohar-studio.ru</small>
+  <header class="shell">
+    <a class="brand" href="/">Ohar Studio</a>
+    <span class="status">Игра доступна</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="game-title">
+      <div class="copy">
+        <p class="eyebrow">Аркада на скорость реакции</p>
+        <h1 id="game-title">Neon <span>Shift</span></h1>
+        <p class="lead">Меняйте полосу, уклоняйтесь от препятствий и собирайте кристаллы. Чем дольше держитесь, тем быстрее становится игра.</p>
+        <div class="actions" aria-label="Выберите платформу">
+          <a class="button button-vk" href="https://vk.ru/app54660255" target="_blank" rel="noopener noreferrer">Играть во ВКонтакте</a>
+          <a class="button button-tg" href="https://t.me/neon_shift_bot" target="_blank" rel="noopener noreferrer">Играть в Telegram</a>
+        </div>
+        <div class="platforms" aria-hidden="true">
+          <span>VK Игры</span>
+          <span>Telegram</span>
+        </div>
+      </div>
+
+      <figure class="art">
+        <img src="/assets/neon-shift-hero.png" alt="Neon Shift — космический корабль среди неоновых препятствий" width="1560" height="520">
+      </figure>
+    </section>
   </main>
+
+  <footer class="shell">
+    <span>© 2026 Ohar Studio</span>
+    <span>Игры и интерактивные проекты</span>
+  </footer>
 </body>
 </html>

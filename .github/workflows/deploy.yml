@@ -58,12 +58,14 @@ jobs:
         run: |
           mkdir -p dist
           cp index.html dist/index.html
+          cp -R assets dist/assets
 
       - name: Smoke test build
         shell: bash
         run: |
           test -s dist/index.html
-          grep -qi '<title>Ohar Studio</title>' dist/index.html
+          test -s dist/assets/neon-shift-hero.png
+          grep -qi '<title>Neon Shift — Ohar Studio</title>' dist/index.html
 
       - name: Create build archive
         shell: bash

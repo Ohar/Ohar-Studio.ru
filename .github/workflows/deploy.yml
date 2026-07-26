@@ -1,0 +1,101 @@
+name: Deploy production
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Normalize deployment settings
+        shell: bash
+        run: |
+          NORMALIZED_PASSWORD="$(printf '%s' "$DEPLOY_PASSWORD" | tr -d '\r\n')"
+          echo "::add-mask::$NORMALIZED_PASSWORD"
+          {
+            printf 'DEPLOY_HOST=%s\n' "$(printf '%s' "$DEPLOY_HOST" | tr -d '\r\n')"
+            printf 'DEPLOY_USER=%s\n' "$(printf '%s' "$DEPLOY_USER" | tr -d '\r\n')"
+            printf 'DEPLOY_PASSWORD=%s\n' "$NORMALIZED_PASSWORD"
+            printf 'DEPLOY_PATH=%s\n' "$(printf '%s' "${DEPLOY_PATH:-/var/www/ohar-studio.ru/current}" | tr -d '\r\n')"
+          } >> "$GITHUB_ENV"
+
+      - name: Validate deployment settings
+        shell: bash
+        run: |
+          test -n "$DEPLOY_HOST"
+          test -n "$DEPLOY_USER"
+          test -n "$DEPLOY_PASSWORD"
+          test -n "$DEPLOY_PATH"
+
+      - name: Build static site
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp index.html dist/index.html
+
+      - name: Smoke test build
+        shell: bash
+        run: |
+          test -s dist/index.html
+          grep -qi '<title>Ohar Studio</title>' dist/index.html
+
+      - name: Create build archive
+        shell: bash
+        run: tar -C dist -czf site.tar.gz .
+
+      - name: Install SSH deploy tools
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Trust deployment host
+        shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload release files
+        shell: bash
+        run: |
+          sshpass -p "$DEPLOY_PASSWORD" ssh "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p /tmp/ohar-studio-deploy"
+          sshpass -p "$DEPLOY_PASSWORD" scp site.tar.gz "$DEPLOY_USER@$DEPLOY_HOST:/tmp/ohar-studio-deploy/site.tar.gz"
+          sshpass -p "$DEPLOY_PASSWORD" scp infra/nginx/ohar-studio.ru.conf "$DEPLOY_USER@$DEPLOY_HOST:/tmp/ohar-studio-deploy/ohar-studio.ru.conf"
+
+      - name: Activate release
+        shell: bash
+        run: |
+          sshpass -p "$DEPLOY_PASSWORD" ssh "$DEPLOY_USER@$DEPLOY_HOST" "DEPLOY_PATH='$DEPLOY_PATH' GITHUB_SHA='$GITHUB_SHA' bash -s" <<'REMOTE'
+          set -euo pipefail
+          DEPLOY_PATH="${DEPLOY_PATH:-/var/www/ohar-studio.ru/current}"
+          RELEASE_PATH="$(dirname "$DEPLOY_PATH")/releases/$GITHUB_SHA"
+
+          mkdir -p "$RELEASE_PATH"
+          tar -xzf /tmp/ohar-studio-deploy/site.tar.gz -C "$RELEASE_PATH"
+          install -m 0644 /tmp/ohar-studio-deploy/ohar-studio.ru.conf /etc/nginx/sites-available/ohar-studio.ru
+          ln -sfn /etc/nginx/sites-available/ohar-studio.ru /etc/nginx/sites-enabled/ohar-studio.ru
+          ln -sfn "$RELEASE_PATH" "$DEPLOY_PATH.tmp"
+          mv -Tf "$DEPLOY_PATH.tmp" "$DEPLOY_PATH"
+          nginx -t
+          systemctl reload nginx
+          rm -rf /tmp/ohar-studio-deploy
+          REMOTE

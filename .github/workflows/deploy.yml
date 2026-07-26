@@ -23,6 +23,7 @@ jobs:
       DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
       DEPLOY_PASSWORD: ${{ secrets.DEPLOY_PASSWORD }}
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      REPOSITORY_URL: https://github.com/Ohar/Ohar-Studio.ru.git
 
     steps:
       - name: Checkout
@@ -67,10 +68,6 @@ jobs:
           test -s dist/assets/neon-shift-hero.png
           grep -qi '<title>Neon Shift — Ohar Studio</title>' dist/index.html
 
-      - name: Create build archive
-        shell: bash
-        run: tar -C dist -czf site.tar.gz .
-
       - name: Install SSH deploy tools
         run: sudo apt-get update && sudo apt-get install -y sshpass
 
@@ -81,28 +78,31 @@ jobs:
           chmod 700 ~/.ssh
           ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
-      - name: Upload release files
+      - name: Deploy repository commit
         shell: bash
         run: |
-          sshpass -p "$DEPLOY_PASSWORD" ssh "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p /tmp/ohar-studio-deploy"
-          sshpass -p "$DEPLOY_PASSWORD" scp site.tar.gz "$DEPLOY_USER@$DEPLOY_HOST:/tmp/ohar-studio-deploy/site.tar.gz"
-          sshpass -p "$DEPLOY_PASSWORD" scp infra/nginx/ohar-studio.ru.conf "$DEPLOY_USER@$DEPLOY_HOST:/tmp/ohar-studio-deploy/ohar-studio.ru.conf"
-
-      - name: Activate release
-        shell: bash
-        run: |
-          sshpass -p "$DEPLOY_PASSWORD" ssh "$DEPLOY_USER@$DEPLOY_HOST" "DEPLOY_PATH='$DEPLOY_PATH' GITHUB_SHA='$GITHUB_SHA' bash -s" <<'REMOTE'
+          sshpass -p "$DEPLOY_PASSWORD" ssh "$DEPLOY_USER@$DEPLOY_HOST" "DEPLOY_PATH='$DEPLOY_PATH' GITHUB_SHA='$GITHUB_SHA' REPOSITORY_URL='$REPOSITORY_URL' bash -s" <<'REMOTE'
           set -euo pipefail
           DEPLOY_PATH="${DEPLOY_PATH:-/var/www/ohar-studio.ru/current}"
           RELEASE_PATH="$(dirname "$DEPLOY_PATH")/releases/$GITHUB_SHA"
+          REPOSITORY_PATH="$(dirname "$DEPLOY_PATH")/repository.git"
+
+          if [ ! -d "$REPOSITORY_PATH" ]; then
+            git clone --bare "$REPOSITORY_URL" "$REPOSITORY_PATH"
+          fi
+          git --git-dir="$REPOSITORY_PATH" fetch --prune origin master
+          git --git-dir="$REPOSITORY_PATH" cat-file -e "$GITHUB_SHA^{commit}"
 
           mkdir -p "$RELEASE_PATH"
-          tar -xzf /tmp/ohar-studio-deploy/site.tar.gz -C "$RELEASE_PATH"
-          install -m 0644 /tmp/ohar-studio-deploy/ohar-studio.ru.conf /etc/nginx/sites-available/ohar-studio.ru
+          git --git-dir="$REPOSITORY_PATH" archive "$GITHUB_SHA" index.html assets | tar -x -C "$RELEASE_PATH"
+          git --git-dir="$REPOSITORY_PATH" show "$GITHUB_SHA:infra/nginx/ohar-studio.ru.conf" > /tmp/ohar-studio.ru.conf
+          test -s "$RELEASE_PATH/index.html"
+          test -s "$RELEASE_PATH/assets/neon-shift-hero.png"
+          install -m 0644 /tmp/ohar-studio.ru.conf /etc/nginx/sites-available/ohar-studio.ru
           ln -sfn /etc/nginx/sites-available/ohar-studio.ru /etc/nginx/sites-enabled/ohar-studio.ru
+          nginx -t
           ln -sfn "$RELEASE_PATH" "$DEPLOY_PATH.tmp"
           mv -Tf "$DEPLOY_PATH.tmp" "$DEPLOY_PATH"
-          nginx -t
           systemctl reload nginx
-          rm -rf /tmp/ohar-studio-deploy
+          rm -f /tmp/ohar-studio.ru.conf
           REMOTE

@@ -74,9 +74,8 @@ The matching public key is already installed in
 `/home/deploy/.ssh/authorized_keys` on the server. Never print the private key
 in logs or chat and never add it to Git.
 
-At the time this runbook was created, the most recent Actions run had failed
-because GitHub did not expose the required repository secrets to the workflow.
-Before relying on automatic deployment, confirm the secrets are under:
+Automatic deployment with these repository secrets was verified successfully
+on 2026-07-31. If secret validation fails later, confirm the secrets are under:
 
 `Settings -> Secrets and variables -> Actions -> Repository secrets`
 

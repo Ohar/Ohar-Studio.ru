@@ -59,6 +59,7 @@ jobs:
         run: |
           test -s dist/index.html
           test -s dist/assets/neon-shift-hero.png
+          test -s dist/assets/rosterama-army-preview.png
           grep -qi '<title>Ohar Studio — игры и интерактивные проекты</title>' dist/index.html
           grep -Fq 'https://rosterama.ru/' dist/index.html
 

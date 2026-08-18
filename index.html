@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#070916">
-  <meta name="description" content="Neon Shift — скоростная аркада от Ohar Studio. Играйте во ВКонтакте или Telegram.">
-  <meta property="og:title" content="Neon Shift — Ohar Studio">
-  <meta property="og:description" content="Уклоняйтесь от препятствий, собирайте кристаллы и ускоряйтесь. Игра доступна во ВКонтакте и Telegram.">
+  <meta name="description" content="Проекты Ohar Studio: скоростная аркада Neon Shift и сервис Rosterama.">
+  <meta property="og:title" content="Ohar Studio — игры и интерактивные проекты">
+  <meta property="og:description" content="Neon Shift и Rosterama — проекты Ohar Studio.">
   <meta property="og:image" content="https://ohar-studio.ru/assets/neon-shift-hero.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ohar-studio.ru/">
-  <title>Neon Shift — Ohar Studio</title>
+  <title>Ohar Studio — игры и интерактивные проекты</title>
   <style>
     :root {
       color-scheme: dark;
@@ -193,6 +193,88 @@
 
     .platforms span + span { padding-left: 18px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
 
+    .projects {
+      margin-top: clamp(72px, 11vw, 132px);
+      padding-top: clamp(42px, 6vw, 70px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .section-kicker {
+      margin: 0 0 14px;
+      color: #a99cff;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 64px);
+      letter-spacing: -0.045em;
+      line-height: 1.04;
+    }
+
+    .rosterama-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 32px;
+      overflow: hidden;
+      margin-top: 32px;
+      padding: clamp(26px, 5vw, 52px);
+      border: 1px solid rgba(170, 156, 255, 0.26);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(115, 87, 255, 0.3), transparent 30rem),
+        radial-gradient(circle at 92% 90%, rgba(255, 79, 163, 0.2), transparent 24rem),
+        rgba(18, 16, 42, 0.8);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+    }
+
+    .rosterama-card::after {
+      position: absolute;
+      top: -9rem;
+      right: -7rem;
+      width: 24rem;
+      height: 24rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .rosterama-copy { position: relative; z-index: 1; }
+
+    .rosterama-brand {
+      margin: 0;
+      font-size: clamp(42px, 7vw, 84px);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      line-height: 0.95;
+    }
+
+    .rosterama-brand span { color: #aa9cff; }
+
+    .rosterama-description {
+      max-width: 620px;
+      margin: 20px 0 0;
+      color: #c9c4dc;
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.65;
+    }
+
+    .button-rosterama {
+      position: relative;
+      z-index: 1;
+      min-width: 190px;
+      background: linear-gradient(135deg, #7357ff, #ff4fa3);
+      box-shadow: 0 14px 40px rgba(126, 96, 255, 0.28);
+    }
+
+    .button-rosterama:hover { box-shadow: 0 18px 48px rgba(255, 79, 163, 0.26); }
+
     footer {
       display: flex;
       justify-content: space-between;
@@ -208,6 +290,8 @@
       .art { order: -1; transform: none; }
       h1 { font-size: clamp(60px, 17vw, 100px); }
       .lead { margin-top: 26px; }
+      .rosterama-card { grid-template-columns: 1fr; }
+      .button-rosterama { justify-self: start; }
     }
 
     @media (max-width: 520px) {
@@ -218,6 +302,8 @@
       .actions { flex-direction: column; }
       .button { width: 100%; }
       .platforms { flex-wrap: wrap; }
+      .rosterama-card { border-radius: 12px; }
+      .button-rosterama { width: 100%; }
       footer { flex-direction: column; }
     }
 
@@ -230,7 +316,7 @@
 <body>
   <header class="shell">
     <a class="brand" href="/">Ohar Studio</a>
-    <span class="status">Игра доступна</span>
+    <span class="status">Проекты доступны</span>
   </header>
 
   <main class="shell">
@@ -252,6 +338,19 @@
       <figure class="art">
         <img src="/assets/neon-shift-hero.png" alt="Neon Shift — космический корабль среди неоновых препятствий" width="1560" height="520">
       </figure>
+    </section>
+
+    <section class="projects" aria-labelledby="projects-title">
+      <p class="section-kicker">Ещё один проект</p>
+      <h2 class="section-title" id="projects-title">Увидеть армию до выхода на игровой стол</h2>
+
+      <article class="rosterama-card">
+        <div class="rosterama-copy">
+          <h3 class="rosterama-brand">Rosterama<span>.ru</span></h3>
+          <p class="rosterama-description">Визуализатор ростеров Warhammer 40,000: превращает WTC-экспорт из WarOrgan в готовое изображение армии с моделями на базах реального размера. Результат можно скачать или отправить публичной ссылкой.</p>
+        </div>
+        <a class="button button-rosterama" href="https://rosterama.ru/" target="_blank" rel="noopener noreferrer">Открыть Rosterama</a>
+      </article>
     </section>
   </main>
 

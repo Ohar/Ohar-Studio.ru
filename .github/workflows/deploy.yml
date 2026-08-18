@@ -59,7 +59,8 @@ jobs:
         run: |
           test -s dist/index.html
           test -s dist/assets/neon-shift-hero.png
-          grep -qi '<title>Neon Shift — Ohar Studio</title>' dist/index.html
+          grep -qi '<title>Ohar Studio — игры и интерактивные проекты</title>' dist/index.html
+          grep -Fq 'https://rosterama.ru/' dist/index.html
 
       - name: Configure SSH
         shell: bash

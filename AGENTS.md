@@ -73,7 +73,7 @@ git archive allowlist, including its separately installed server copy.
    Test-Path index.html
    Test-Path assets/site/index.html
    Test-Path assets/neon-shift-hero.png
-   Select-String -Quiet -LiteralPath assets/site/index.html -Pattern '<title>Ohar</title>'
+   Select-String -Quiet -LiteralPath assets/site/index.html -Pattern '<title[^>]*>Ohar</title>'
    ```
 
    The PDF test requires Chrome/Chromium and checks both CV languages fit on one

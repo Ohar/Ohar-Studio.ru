@@ -8,7 +8,7 @@ on:
 
 concurrency:
   group: deploy-production
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -70,20 +70,28 @@ jobs:
       - name: Verify CV PDF page count
         run: yarn test:cv-pdf
 
-      - name: Verify committed export
-        run: yarn test:published
+      - name: Verify deployment archive validation
+        run: python3 -m unittest discover -s tests -p 'test_deploy_archive.py'
 
       - name: Smoke test build
         shell: bash
         run: |
-          test -s assets/site/index.html
-          test -s assets/site/404.html
-          test -s assets/neon-shift-hero.png
-          grep -Eq '<title[^>]*>Ohar</title>' assets/site/index.html
-          grep -Fq 'https://rosterama.ru/' assets/site/portfolio/index.html
-          grep -Fq 'https://yandex.ru/games/app/neon-shift-544710' assets/site/portfolio/index.html
+          test -s out/index.html
+          test -s out/404.html
+          test -s out/assets/neon-shift-hero.png
+          grep -Eq '<title[^>]*>Ohar</title>' out/index.html
+          grep -Fq 'https://rosterama.ru/' out/portfolio/index.html
+          grep -Fq 'https://yandex.ru/games/app/neon-shift-544710' out/portfolio/index.html
           grep -Fq 'try_files $uri $uri/ =404;' infra/nginx/ohar-studio.ru.conf
-          grep -Fq 'root /var/www/ohar-studio.ru/current/assets/site;' infra/nginx/ohar-studio.ru.conf
+          grep -Fq 'root /var/www/ohar-studio.ru/current;' infra/nginx/ohar-studio.ru.conf
+          test -z "$(git ls-files -- out .next assets/site index.html .static-publish.json)"
+
+      - name: Package tested build
+        run: |
+          printf '%s\n' "$GITHUB_SHA" > out/.deploy-commit
+          tar -C out -czf site.tar.gz .
+          python3 infra/deploy/extract-release.py site.tar.gz "$RUNNER_TEMP/ohar-studio-export" "$GITHUB_SHA"
+          printf 'ARCHIVE_SHA256=%s\n' "$(sha256sum site.tar.gz | cut -d ' ' -f 1)" >> "$GITHUB_ENV"
 
       - name: Configure SSH
         shell: bash
@@ -94,6 +102,18 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
-      - name: Deploy repository commit
+      - name: Upload tested build
         shell: bash
-        run: ssh "$DEPLOY_USER@$DEPLOY_HOST" "sudo /usr/local/sbin/deploy-ohar-studio '$GITHUB_SHA'"
+        run: |
+          ssh "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p /home/deploy/ohar-studio-upload/$GITHUB_SHA"
+          scp site.tar.gz "$DEPLOY_USER@$DEPLOY_HOST:/home/deploy/ohar-studio-upload/$GITHUB_SHA/site.tar.gz"
+
+      - name: Activate release
+        shell: bash
+        run: ssh "$DEPLOY_USER@$DEPLOY_HOST" "sudo /usr/local/sbin/deploy-ohar-studio '$GITHUB_SHA' '$ARCHIVE_SHA256'"
+
+      - name: Verify production
+        shell: bash
+        run: |
+          test "$(curl --fail --silent --show-error --retry 3 https://ohar-studio.ru/.deploy-commit)" = "$GITHUB_SHA"
+          curl --fail --silent --show-error --retry 3 https://ohar-studio.ru/portfolio/ > /dev/null

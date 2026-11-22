@@ -64,6 +64,13 @@ typings/
 .next/
 out/
 
+# Build and deployment output (never commit)
+/assets/
+/index.html
+/.static-publish.json
+/site.tar.gz
+__pycache__/
+
 # Mac files
 .DS_Store
 

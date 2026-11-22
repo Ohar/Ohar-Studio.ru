@@ -2,158 +2,134 @@
 
 ## Scope and source
 
-This repository publishes a separate copy of the Next.js site from
-https://github.com/Ohar/Ohar.name, imported at
-`50266b61163ae720528dba0c42c417379be2a2de`.
-The former Neon Shift / Rosterama landing page is now part of `/portfolio/`.
+This repository publishes a separate copy of https://github.com/Ohar/Ohar.name,
+imported at `50266b61163ae720528dba0c42c417379be2a2de`.
+The former Neon Shift / Rosterama landing page is part of /portfolio/.
 
-- Production: `https://ohar-studio.ru/`
-- Repository: `https://github.com/Ohar/Ohar-Studio.ru`
-- Production branch: `master`
-- Server: `172.233.53.148`
-- Deployment SSH user: `deploy` (never use `root` for routine deploys)
+- Production: https://ohar-studio.ru/
+- Repository: https://github.com/Ohar/Ohar-Studio.ru
+- Production branch: master
+- Server: 172.233.53.148
+- Routine deployment SSH user: deploy
 
 The repositories remain independent. Do not change origin, push to Ohar.name,
-or alter its deployment during normal Ohar Studio work. Source imports are
-deliberate; there is no automatic synchronization.
+or modify its deployment during normal Ohar Studio work. These instructions
+merge the former local AGENTS.md and upstream AGENT_OHAR_STUDIO.md.
 
-These instructions merge the former local AGENTS.md and the imported
-AGENT_OHAR_STUDIO.md. This repository's Git-based deployment and SSH-key
-authentication supersede the upstream archive-upload/password instructions.
+Keep changes reviewable and preserve unrelated user edits. Never commit
+passwords, private keys, .env files or secret values. Do not copy external server
+configuration into this repository. Inspect the existing workflow and nginx
+configuration before changes. Preserve certificate paths and unrelated vhosts.
 
-Keep changes reviewable. Preserve unrelated user changes. Never commit
-passwords, private keys, .env files, GitHub secret values, or server configuration
-copied from outside this repository. Inspect the existing workflow and nginx
-config before deployment changes. Preserve server paths, certificate paths and
-release layout unless the user asks to migrate them.
+## Source and build layout
 
-## Content layout
+- src/: Next.js pages, components, styles, images and fonts.
+- public/: public assets, downloadable CVs and legacy /assets/ image URLs.
+- tests/: language, CV PDF and deployment archive checks.
+- next.config.js: static export, unoptimized images and trailing slashes.
+- out/: ignored build output; never commit it.
+- infra/nginx/ohar-studio.ru.conf: this domain's production nginx vhost.
+- infra/deploy/deploy.sh: versioned privileged activation helper.
+- infra/deploy/extract-release.py: static build archive validator/extractor.
+- .github/workflows/deploy.yml: builds, tests and deploys pushes to master.
 
-- `src/`: copied Next.js pages, components, styles, images and fonts.
-- `public/`: public assets, including downloadable CVs.
-- `tests/`: upstream language and CV PDF checks.
-- `next.config.js`: static export, unoptimized images and trailing slashes.
-- `out/`: ignored local build output.
-- `assets/site/`: committed static export served at the domain root.
-- `index.html`: generated copy of assets/site/index.html, retained for the
-  installed deployment helper.
-- `assets/neon-shift-hero.png` and `assets/rosterama-army-preview.png`: old image
-  URLs; the former is also required by the installed helper.
-- `scripts/prepare-static.cjs`: refreshes the export and records source/export
-  fingerprints in `.static-publish.json`.
-- `infra/nginx/ohar-studio.ru.conf`: production nginx vhost.
-- `infra/deploy/deploy.sh`: versioned copy of the installed privileged helper.
-- `.github/workflows/deploy.yml`: validates and deploys pushes to master.
+Use Node.js 24 and Yarn 1.22.22 with yarn.lock. Edit and commit sources only.
+There is no build:publish step, generated root index.html, assets/site/ snapshot,
+or .static-publish.json in Git. Old local copies are ignored.
 
-Use Node.js 24 and Yarn 1.22.22 with the committed yarn.lock. Edit sources, not
-generated HTML or bundles. After source changes, run `corepack yarn build:publish`
-and commit sources and generated files together. CI rejects stale or modified
-exports. The development command is `corepack yarn dev`.
+## Publishing
 
-The server fetches a commit from GitHub and exports only index.html and assets/.
-The nested assets/site/ layout preserves the existing privileged helper without
-changing sudo permissions or uploading local archives. Never expose the whole
-repository: .github/, infra/, source files and agent documentation must not be
-served. For new top-level public paths, update both CI and the helper's
-git archive allowlist, including its separately installed server copy.
+A normal source commit pushed to master is enough. Local builds are optional;
+GitHub Actions is responsible for building the deployed artifact.
 
-## Normal publishing workflow
-
-1. Inspect `git status -sb` and preserve unrelated changes.
-2. Install dependencies when needed with
-   `corepack yarn install --frozen-lockfile --non-interactive`, then edit sources.
-3. Run:
+1. Inspect git status -sb; preserve unrelated changes.
+2. Edit sources and run checks relevant to the change. For local verification:
 
    ```powershell
-   corepack yarn build:publish
+   corepack yarn install --frozen-lockfile --non-interactive
+   corepack yarn build
    corepack yarn test:i18n
    corepack yarn test:cv-pdf
-   corepack yarn test:published
+   python -m unittest discover -s tests -p test_deploy_archive.py
    git diff --check
-   Test-Path index.html
-   Test-Path assets/site/index.html
-   Test-Path assets/neon-shift-hero.png
-   Select-String -Quiet -LiteralPath assets/site/index.html -Pattern '<title[^>]*>Ohar</title>'
    ```
 
-   The PDF test requires Chrome/Chromium and checks both CV languages fit on one
-   A4 page. Increment the version only when a release is requested.
-4. Visually verify desktop and mobile UI, including the homepage, /portfolio/
-   and the EN/RU language switcher.
-5. Inspect the diff, stage intended files only, commit tersely, and push master.
-6. Follow the Deploy production Actions run through completion.
-7. Verify production:
+   Chrome/Chromium is needed for the PDF test; CHROME_PATH can select a compatible
+   browser. For UI changes, check desktop/mobile and EN/RU. Increment the version
+   only when requested.
+3. Stage intended source files, commit tersely, and push master.
+4. Follow Deploy production through completion. It installs locked dependencies,
+   builds out/, runs tests, checks that generated files are not tracked, packages
+   the tested output with a commit marker, validates the archive and uploads it
+   over SSH. A failed build or test must prevent publication.
+5. Actions invokes the helper under deploy with the source SHA and archive hash.
+   The helper verifies the checksum, commit marker, required files and archive
+   paths, creates an immutable SHA-named release, installs only this domain's
+   versioned nginx config, validates nginx, atomically switches current and reloads.
+6. Verify the live homepage, /portfolio/, /.deploy-commit and HTTP/www redirects.
 
-   ```powershell
-   curl.exe -fsS -I https://ohar-studio.ru/
-   curl.exe -fsS -I https://ohar-studio.ru/portfolio/
-   curl.exe -fsS -I https://www.ohar-studio.ru/
-   curl.exe -fsS -I http://ohar-studio.ru/
-   ```
+Only built public output is served; never expose source, .github/, infra/,
+node_modules, agent documentation or secrets. Unknown URLs return the exported
+404 page with status 404. Cache immutable files only under /_next/static/.
+HTTP and www redirect to https://ohar-studio.ru/, preserving paths.
 
-HTTP and www must redirect to https://ohar-studio.ru/, preserving paths.
-Unknown pages must return 404 with the exported 404.html. Apply immutable caching
-only to /_next/static/, not HTML or unhashed assets. Always run nginx -t before
-reloading nginx.
+Do not cancel an activation in progress. Actions serializes deployments and
+the server helper holds a per-site lock. Existing releases are immutable;
+rerunning a commit reactivates its existing release.
 
-## Credentials and Actions
+## Credentials and installed helper
 
-Repository Actions secrets:
+Existing repository Actions secrets are sufficient:
+DEPLOY_HOST, DEPLOY_USER and DEPLOY_SSH_KEY. The deploy key is outside Git at
+`C:\Users\vokec\.ssh\ohar_studio_github_deploy`. Never print it.
+Do not change secret values or sudo permissions without a concrete need.
+Never bypass SSH host verification or a changed-host-key warning.
 
-- DEPLOY_HOST = 172.233.53.148
-- DEPLOY_USER = deploy
-- DEPLOY_SSH_KEY = complete private Ed25519 key including BEGIN and END lines
+Routine publication uses deploy, never root. Installing or updating the
+privileged helper is a separate administrative maintenance operation:
+- install infra/deploy/deploy.sh as /usr/local/sbin/deploy-ohar-studio (root, 0755);
+- install infra/deploy/extract-release.py as
+  /usr/local/lib/ohar-studio/extract-release.py (root, 0644);
+- validate Bash/Python syntax and preserve backups before replacement.
+Changing repository copies does not update installed helpers automatically.
+The existing deploy sudo rule permits only /usr/local/sbin/deploy-ohar-studio.
 
-The workstation key is outside the repository at
-`C:\Users\vokec\.ssh\ohar_studio_github_deploy`. Never print it or add it to Git.
-Its public key is installed in /home/deploy/.ssh/authorized_keys.
-Secrets belong under Settings -> Secrets and variables -> Actions -> Repository
-secrets. If a secret is missing, report its name; do not invent values.
-
-Preserve push-to-master and workflow_dispatch triggers, deployment concurrency,
-secret validation and CRLF normalization, locked dependency installation,
-build/tests and SSH host verification. Never bypass a changed host-key warning.
-The workflow invokes the Git-based helper; it does not upload build archives.
-
-## Manual deployment fallback
-
-Use only when Actions is unavailable. The helper fetches the requested commit
-from GitHub; never upload a locally built archive.
-
-```powershell
-$sha = git rev-parse HEAD
-ssh -i "$env:USERPROFILE\.ssh\ohar_studio_github_deploy" `
-  -o BatchMode=yes -o IdentitiesOnly=yes `
-  deploy@172.233.53.148 `
-  "sudo /usr/local/sbin/deploy-ohar-studio '$sha'"
-```
-
-The helper accepts a full 40-character SHA, fetches it, creates a SHA-named
-release, installs versioned nginx configuration, runs nginx -t, atomically
-switches current and reloads nginx. Editing its repository copy does not
-automatically update /usr/local/sbin/deploy-ohar-studio.
-
-## Production layout and rollback
+The deployment layout is:
 
 ```text
+/home/deploy/ohar-studio-upload/<commit-sha>/site.tar.gz
 /var/www/ohar-studio.ru/repository.git
-/var/www/ohar-studio.ru/releases/<commit-sha>
-/var/www/ohar-studio.ru/current/assets/site
+/var/www/ohar-studio.ru/releases/<commit-sha>/
+/var/www/ohar-studio.ru/current
 /etc/nginx/sites-available/ohar-studio.ru
 /etc/nginx/sites-enabled/ohar-studio.ru
 ```
 
-Read the active release without changing it:
+The bare repository supplies the versioned nginx configuration. Site contents
+come from the validated CI archive, not git archive. The helper accepts a full
+40-character source SHA plus the SHA-256 of a new upload. No new release is
+created without the CI artifact. Use workflow_dispatch to rebuild/redeploy.
+
+## Rollback and subdomains
+
+Never modify neon-shift or buy-a-pot vhosts, their releases or their deployment
+configuration as part of this site's publishing. Preserve
+/etc/nginx/sites-available/neon-shift.bak-20260726-1403. Never delete releases.
+
+Reactivate an existing known-good release without rebuilding or uploading:
 
 ```powershell
+$sha = '<full-known-good-commit-sha>'
 ssh -i "$env:USERPROFILE\.ssh\ohar_studio_github_deploy" `
-  -o BatchMode=yes -o IdentitiesOnly=yes `
-  deploy@172.233.53.148 `
-  "readlink -f /var/www/ohar-studio.ru/current"
+  -o BatchMode=yes -o IdentitiesOnly=yes deploy@172.233.53.148 `
+  "sudo /usr/local/sbin/deploy-ohar-studio '$sha'"
 ```
 
-Never modify the shared neon-shift vhost during normal publishing. Do not delete
-releases. Roll back with a full known-good repository commit SHA and verify the
-site afterward. The pre-migration release is
-`56c25961fea18f191deb0573275558a64ae58b68`; its nginx config uses the former root.
-Preserve /etc/nginx/sites-available/neon-shift.bak-20260726-1403.
+The helper also restores the matching versioned vhost, so pre-migration
+releases with their former document root remain usable. The known-good release
+before the CI-artifact migration is ef94e4124bece75bf4879f8c8e079e5f48c2954c.
+If nginx validation fails, current stays unchanged and the old config is restored.
+If reload fails, the helper restores both the old config and current.
+
+Check the active release with the same deploy SSH key and
+`readlink -f /var/www/ohar-studio.ru/current`.

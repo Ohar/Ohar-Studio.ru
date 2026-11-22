@@ -18,7 +18,7 @@ const cvData = {
     name: 'Лысенко Павел',
     role: 'Lead Frontend Developer',
     salaryLabel: 'Ожидания по зарплате',
-    salaries: ['от 520 к ₽ (ТК)', 'от 600 к ₽ (ИП)'],
+    salaries: ['от 200 к ₽ (ТК)', 'от 280 к ₽ (ИП)'],
     summaryLabel: 'О себе',
     summary: [
       'Lead Frontend Engineer с 14+ годами опыта.',
@@ -290,7 +290,7 @@ const cvData = {
     name: 'Pavel Lysenko',
     role: 'Lead Frontend Developer',
     salaryLabel: 'Salary expectations',
-    salaries: ['$4,500 net'],
+    salaries: ['$3,000 net'],
     summaryLabel: 'About me',
     summary: [
       'Lead Frontend Engineer with 14+ years of experience in JavaScript, TypeScript, React, and Vue.js.',

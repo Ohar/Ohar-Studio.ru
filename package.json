@@ -1,0 +1,56 @@
+{
+  "name": "ohar-studio.ru",
+  "version": "1.4.7",
+  "private": true,
+  "description": "Site ohar.name",
+  "packageManager": "yarn@1.22.22",
+  "resolutions": {
+    "postcss": "8.5.18",
+    "sharp": "0.35.3"
+  },
+  "engines": {
+    "node": ">=20.9 <26"
+  },
+  "scripts": {
+    "test": "yarn build && yarn test:i18n && yarn test:cv-pdf",
+    "test:i18n": "node --test tests/i18n.test.js",
+    "test:cv-pdf": "node --test tests/cv-pdf.test.js",
+    "start": "next dev",
+    "dev": "next dev",
+    "build": "next build",
+    "build:publish": "yarn build && node scripts/prepare-static.cjs",
+    "test:published": "node scripts/prepare-static.cjs --check",
+    "release": "npm version patch && git push --follow-tags origin master",
+    "format": "prettier --write src/**/*.{js,jsx} tests/*.js next.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ohar/Ohar-Studio.ru.git"
+  },
+  "author": "Pavel Lysenko aka Ohar",
+  "contributors": [
+    "OpenAI Codex"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ohar/Ohar-Studio.ru/issues"
+  },
+  "homepage": "https://ohar-studio.ru/",
+  "devDependencies": {
+    "prettier": "^3.6.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-brands-svg-icons": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.1",
+    "arrify": "^2.0.1",
+    "classnames": "^2.5.1",
+    "declint-ru": "^0.0.2",
+    "lodash": "^4.18.1",
+    "next": "16.2.12",
+    "prop-types": "^15.8.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

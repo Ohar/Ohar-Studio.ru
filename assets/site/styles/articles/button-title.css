@@ -1,0 +1,27 @@
+.example_fixed_title {
+    position: relative;
+}
+
+.example_fixed_title:hover span:before {
+    content: attr(title);
+    display: block;
+    position: absolute;
+    background: white;
+    bottom: 100%;
+    left: 0;
+    margin: 0 0 10px;
+    padding: 5px 20px;
+}
+
+.example_fixed_title:hover span:after {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    border-width: 5px 5px 0;
+    border-style: solid;
+    border-color: white transparent transparent;
+    position: absolute;
+    bottom: 100%;
+    margin: 0 0 5px;
+}

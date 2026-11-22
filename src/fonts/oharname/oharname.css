@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+@font-face {
+ font-family: 'oharname';
+ src: url('oharname.eot?11112152');
+ src: url('oharname.eot?11112152#iefix') format('embedded-opentype'),
+      url('oharname.woff2?11112152') format('woff2'),
+      url('oharname.woff?11112152') format('woff'),
+      url('oharname.ttf?11112152') format('truetype'),
+      url('oharname.svg?11112152#oharname') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'oharname';
+    src: url('oharname.svg?11112152#oharname') format('svg');
+  }
+}
+*/
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+ font-family: "oharname";
+ font-style: normal;
+ font-weight: normal;
+ speak: none;
+
+ display: inline-block;
+ text-decoration: inherit;
+ width: 1em;
+ margin-right: .2em;
+ text-align: center;
+ /* opacity: .8; */
+
+ /* For safety - reset parent styles, that can break glyph codes*/
+ font-variant: normal;
+ text-transform: none;
+
+ /* fix buttons height, for twitter bootstrap */
+ line-height: 1em;
+
+ /* Animation center compensation - margins should be symmetric */
+ /* remove if not needed */
+ margin-left: .2em;
+
+ /* you can be more comfortable with increased icons size */
+ /* font-size: 120%; */
+
+ /* Font smoothing. That was taken from TWBS */
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+
+ /* Uncomment for 3D effect */
+ /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-paypal:before { content: '\50'; } /* 'P' */
+.icon-skype:before { content: '\53'; } /* 'S' */
+.icon-wikipedia:before { content: '\57'; } /* 'W' */
+.icon-facebook-squared:before { content: '\66'; } /* 'f' */
+.icon-vkontakte:before { content: '\0412'; } /* 'В' */
+.icon-quote-left:before { content: '\201c'; } /* '“' */
+.icon-telegram:before { content: '\2708'; } /* '✈' */
+.icon-file-pdf:before { content: '\e800'; } /* '' */
+.icon-file-word:before { content: '\e801'; } /* '' */
+.icon-file-code:before { content: '\e802'; } /* '' */
+.icon-star:before { content: '\e803'; } /* '' */
+.icon-sun:before { content: '\e804'; } /* '' */
+.icon-linkedin-squared:before { content: '\e805'; } /* '' */
+.icon-female:before { content: '\e806'; } /* '' */
+.icon-link-ext:before { content: '\e807'; } /* '' */
+.icon-male:before { content: '\e808'; } /* '' */
+.icon-bank:before { content: '\e809'; } /* '' */
+.icon-person:before { content: '\e80a'; } /* '' */
+.icon-wordpress:before { content: '\e80b'; } /* '' */
+.icon-stackoverflow:before { content: '\f16c'; } /* '' */
+.icon-shop:before { content: '🏘'; } /* '\1f3d8' */
+.icon-twitter:before { content: '🐦'; } /* '\1f426' */
+.icon-github-circled:before { content: '🐱'; } /* '\1f431' */
+.icon-magic:before { content: '🐲'; } /* '\1f432' */
+.icon-torso:before { content: '👨'; } /* '\1f468' */
+.icon-doc-text:before { content: '📃'; } /* '\1f4c3' */
+.icon-mail:before { content: '📧'; } /* '\1f4e7' */
+.icon-steam-squared:before { content: '🚂'; } /* '\1f682' */

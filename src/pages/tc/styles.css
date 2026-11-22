@@ -1,0 +1,9 @@
+.TcPage_title {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .DwLayout .TcPage_title {
+    font-size: 2.5rem;
+    line-height: 1.05;
+  }
+}

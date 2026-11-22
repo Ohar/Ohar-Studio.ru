@@ -1,0 +1,388 @@
+/* Adapted from Ohar-Studio.ru; keep the showcase styles local to this page. */
+.page {
+  --text: #f7f8ff;
+  --muted: #aab3d5;
+  --cyan: #35f2ff;
+  padding: 32px 0 64px;
+  background:
+    radial-gradient(
+      circle at 72% 28%,
+      rgba(54, 67, 185, 0.32),
+      transparent 38rem
+    ),
+    radial-gradient(
+      circle at 20% 85%,
+      rgba(0, 225, 239, 0.12),
+      transparent 28rem
+    ),
+    #050712;
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+.page,
+.page * {
+  box-sizing: border-box;
+}
+
+.shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.intro {
+  margin-bottom: clamp(40px, 7vw, 80px);
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 40px);
+}
+
+.subtitle {
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.45fr);
+  align-items: center;
+  gap: clamp(36px, 6vw, 82px);
+}
+
+.copy,
+.art {
+  min-width: 0;
+}
+
+.eyebrow,
+.sectionKicker {
+  margin: 0 0 18px;
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.gameTitle {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(56px, 8.4vw, 112px);
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.075em;
+  line-height: 0.78;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+.gameTitle span {
+  display: block;
+  margin-top: 0.16em;
+  background: linear-gradient(110deg, #16f0ff 10%, #35f2ff 55%, #6e8cff 100%);
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 36px rgba(53, 242, 255, 0.14);
+}
+
+.lead {
+  max-width: 530px;
+  margin: 30px 0 0;
+  color: var(--muted);
+  font-size: clamp(17px, 2vw, 20px);
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.button,
+.button:visited,
+.button:hover,
+.button:focus,
+.button:active {
+  color: white;
+}
+
+.page .button::before {
+  content: none;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+.buttonVk {
+  background: #0077ff;
+  box-shadow: 0 12px 34px rgba(0, 119, 255, 0.25);
+}
+
+.buttonVk:hover {
+  box-shadow: 0 16px 42px rgba(0, 119, 255, 0.38);
+}
+
+.buttonTelegram {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.buttonTelegram:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 12px 34px rgba(53, 242, 255, 0.12);
+}
+
+.buttonYandex,
+.buttonYandex:visited,
+.buttonYandex:hover,
+.buttonYandex:focus,
+.buttonYandex:active {
+  border-color: #ffcc00;
+  background: #ffcc00;
+  color: #171717;
+  box-shadow: 0 12px 34px rgba(255, 204, 0, 0.2);
+}
+
+.buttonYandex:hover {
+  border-color: #ffdc55;
+  box-shadow: 0 16px 42px rgba(255, 204, 0, 0.32);
+}
+
+.art {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid rgba(95, 119, 255, 0.26);
+  border-radius: 20px;
+  background: #080b1d;
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.48),
+    0 0 70px rgba(49, 64, 185, 0.18);
+  transform: perspective(1200px) rotateY(-2deg);
+}
+
+.art img,
+.rosteramaPreview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 30px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.platforms span + span {
+  padding-left: 18px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.projects {
+  margin-top: clamp(72px, 11vw, 132px);
+  padding-top: clamp(42px, 6vw, 70px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sectionKicker {
+  margin-bottom: 14px;
+  color: #a99cff;
+}
+
+.sectionTitle {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(34px, 5vw, 64px);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  text-shadow: none;
+}
+
+.rosteramaCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 32px;
+  overflow: hidden;
+  margin: 32px 0 0;
+  padding: clamp(26px, 5vw, 52px);
+  border: 1px solid rgba(170, 156, 255, 0.26);
+  border-radius: 20px;
+  background:
+    radial-gradient(
+      circle at 12% 20%,
+      rgba(115, 87, 255, 0.3),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 92% 90%,
+      rgba(255, 79, 163, 0.2),
+      transparent 24rem
+    ),
+    rgba(18, 16, 42, 0.8);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
+}
+
+.rosteramaCard::after {
+  position: absolute;
+  top: -9rem;
+  right: -7rem;
+  width: 24rem;
+  height: 24rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.rosteramaCopy,
+.buttonRosterama,
+.rosteramaPreview {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.rosteramaBrand {
+  margin: 0;
+  font-size: clamp(36px, 7vw, 84px);
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  line-height: 1.05;
+}
+
+.rosteramaBrand span {
+  color: #aa9cff;
+}
+
+.rosteramaDescription {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: #c9c4dc;
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.65;
+}
+
+.buttonRosterama {
+  background: linear-gradient(135deg, #7357ff, #ff4fa3);
+  box-shadow: 0 14px 40px rgba(126, 96, 255, 0.28);
+}
+
+.buttonRosterama:hover {
+  box-shadow: 0 18px 48px rgba(255, 79, 163, 0.26);
+}
+
+.rosteramaPreview {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  margin: 4px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: #f4f2ee;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 880px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .art {
+    order: -1;
+    transform: none;
+  }
+
+  .gameTitle {
+    font-size: clamp(60px, 17vw, 100px);
+  }
+
+  .lead {
+    margin-top: 26px;
+  }
+
+  .rosteramaCard {
+    grid-template-columns: 1fr;
+  }
+
+  .buttonRosterama {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 520px) {
+  .page {
+    padding-top: 28px;
+  }
+
+  .art,
+  .rosteramaCard {
+    border-radius: 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:hover {
+    transform: none;
+  }
+}

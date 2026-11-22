@@ -1,0 +1,49 @@
+.MenuLink {
+    padding: 1em;
+    display: block;
+}
+.MenuLink:focus,
+.MenuLink:active,
+.MenuLink:hover {
+    background-color: #fff;
+    color: #000;
+}
+.menu_list_item:first-child .MenuLink,
+.MenuLink-img {
+    padding: 0 1em;
+    background-color: transparent;
+}
+.menu_list_item:first-child .MenuLink .MenuLink_img {
+    vertical-align: middle;
+    -webkit-transition: transform 1.5s ease 0s;
+       -moz-transition: transform 1.5s ease 0s;
+        -ms-transition: transform 1.5s ease 0s;
+         -o-transition: transform 1.5s ease 0s;
+            transition: transform 1.5s ease 0s;
+    -webkit-transform: rotate(0);
+       -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+         -o-transform: rotate(0);
+            transform: rotate(0);
+}
+.menu_list_item:first-child .MenuLink:focus .MenuLink_img,
+.menu_list_item:first-child .MenuLink:active .MenuLink_img,
+.menu_list_item:first-child .MenuLink:hover .MenuLink_img {
+    -webkit-transform: rotate(180deg);
+       -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+         -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+.menu_list_item .MenuLink[href^='https://github.com'] {
+    padding-left: 3em;
+}
+.menu_list_item .MenuLink[href^='https://github.com']:before {
+    left: 1em;
+    width: 1.25em;
+    text-align: center;
+}
+.menu_list_item--explicit-icon .MenuLink:before {
+    content: none;
+    display: none;
+}

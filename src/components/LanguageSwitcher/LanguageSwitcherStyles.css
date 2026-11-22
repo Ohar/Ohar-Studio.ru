@@ -1,0 +1,50 @@
+.LanguageSwitcher {
+    display: inline-flex;
+    align-items: center;
+    padding: .45rem .75rem;
+}
+
+.LanguageSwitcher--pending {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.LanguageSwitcher_button {
+    min-width: 2.75rem;
+    min-height: 2.5rem;
+    padding: 0 .65rem;
+    border: 1px solid #666;
+    color: #fff;
+    background: #000;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.LanguageSwitcher_button + .LanguageSwitcher_button {
+    border-left: 0;
+}
+
+.LanguageSwitcher_button:hover,
+.LanguageSwitcher_button:focus-visible {
+    color: #000;
+    background: #fff;
+}
+
+.LanguageSwitcher_button--active {
+    border-color: gold;
+    color: #000;
+    background: gold;
+}
+
+.LanguageSwitcher_status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

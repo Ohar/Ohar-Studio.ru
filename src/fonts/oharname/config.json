@@ -1,0 +1,178 @@
+{
+  "name": "oharname",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "bf882b30900da12fca090d9796bc3030",
+      "css": "mail",
+      "code": 128231,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e15f0d620a7897e2035c18c80142f6d9",
+      "css": "link-ext",
+      "code": 59399,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ab95e1351ebaec5850101097cbf7097f",
+      "css": "quote-left",
+      "code": 8220,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9daa1fdf0838118518a7e22715e83abc",
+      "css": "file-pdf",
+      "code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "310ffd629da85142bc8669f010556f2d",
+      "css": "file-word",
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "26613a2e6bc41593c54bead46f8c8ee3",
+      "css": "file-code",
+      "code": 59394,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "aa035df0908c4665c269b7b09a5596f3",
+      "css": "sun",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8c0ffa714cecbf5144e022d9c3df4a1f",
+      "css": "bank",
+      "code": 59401,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0f6a2573a7b6df911ed199bb63717e27",
+      "css": "github-circled",
+      "code": 128049,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1145676a91138011729fa2909997af66",
+      "css": "linkedin-squared",
+      "code": 59397,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "58a16628dcbd6456c61218f3d27591be",
+      "css": "skype",
+      "code": 83,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "39f52f80e1864df5e5022d7f0f5ff86f",
+      "css": "wordpress",
+      "code": 59403,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "47bd87a650e95b97f947d275ed968efe",
+      "css": "facebook-squared",
+      "code": 102,
+      "src": "entypo"
+    },
+    {
+      "uid": "c9a7eca58474311926922ff8c2c1d256",
+      "css": "vkontakte",
+      "code": 1042,
+      "src": "entypo"
+    },
+    {
+      "uid": "64c2f859fa518d38db7ec7532855ae34",
+      "css": "wikipedia",
+      "code": 87,
+      "src": "zocial"
+    },
+    {
+      "uid": "6ad86a953a5a76086c5568366863bbca",
+      "css": "torso",
+      "code": 128104,
+      "src": "elusive"
+    },
+    {
+      "uid": "51d26008d35b3c8b15a48f49e2b08860",
+      "css": "male",
+      "code": 59400,
+      "src": "elusive"
+    },
+    {
+      "uid": "471497b78b90ca63aa21b13bf4c46cf4",
+      "css": "female",
+      "code": 59398,
+      "src": "elusive"
+    },
+    {
+      "uid": "531359183f9fedb14b23666f1308591f",
+      "css": "telegram",
+      "code": 9992,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e1597911f34fea0a188ae51fe4a2d9a9",
+      "css": "stackoverflow",
+      "code": 61804,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "727544621cb891115c99b4a4cfed01df",
+      "css": "steam-squared",
+      "code": 128642,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8d584f31a5d54de313f1f3da28708ec0",
+      "css": "paypal",
+      "code": 80,
+      "src": "entypo"
+    },
+    {
+      "uid": "627abcdb627cb1789e009c08e2678ef9",
+      "css": "twitter",
+      "code": 128038,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "6a06892e76b81e023da6ddfb38a26b37",
+      "css": "doc-text",
+      "code": 128195,
+      "src": "typicons"
+    },
+    {
+      "uid": "ff70f7b3228702e0d590e60ed3b90bea",
+      "css": "magic",
+      "code": 128050,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "5d27926667773d186de09fda4312af27",
+      "css": "shop",
+      "code": 127960,
+      "src": "linecons"
+    },
+    {
+      "uid": "1e394b6cd5e0da3e10d8e4f3fe355960",
+      "css": "person",
+      "code": 59402,
+      "src": "elusive"
+    }
+  ]
+}

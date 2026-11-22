@@ -1,0 +1,3 @@
+const KEYCODE_ARROW_LEFT = 37
+
+export default KEYCODE_ARROW_LEFT

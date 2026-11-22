@@ -1,0 +1,15 @@
+.breadcrumbs {
+	margin-bottom: 3rem;
+	font-size: .8rem;
+}
+.breadcrumbs_list {
+	padding-left: 0;
+}
+.breadcrumbs_item {
+	margin-left: 0;
+	display: inline-block;
+}
+.breadcrumbs_item + .breadcrumbs_item:before {
+	content: '/'
+}
+.breadcrumbs_link {}

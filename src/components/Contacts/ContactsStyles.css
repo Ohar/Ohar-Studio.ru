@@ -1,0 +1,16 @@
+.contacts {
+    list-style: none;
+    padding-left: 1em;
+}
+
+.contacts__item__contact.contacts__item__contact--npm {
+    padding-left: 0;
+}
+
+.contacts__item__contact .svg-inline--fa {
+    margin-right: .25rem;
+}
+
+.contacts__item__contact.contacts__item__contact--npm::before {
+    content: none;
+}

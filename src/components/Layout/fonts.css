@@ -1,0 +1,97 @@
+a[href^='http'],
+a[href^='skype'],
+a[href^='mailto'],
+a[href$='.pdf'],
+a[href$='.php'],
+a[href$='.rtf'],
+a[href$='.doc'] {
+    padding-left: 1.5em;
+    position: relative;
+}
+a[href^='http']:before,
+a[href^='skype']:before,
+a[href^='mailto']:before,
+a[href$='.pdf']:before,
+a[href$='.php']:before,
+a[href$='.rtf']:before,
+a[href$='.doc']:before {
+    font-family: 'oharname';
+    position: absolute;
+    left: 0;
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+}
+a[href$='.rtf']:before,
+a[href$='.doc']:before {
+    content: '\e801';
+}
+
+a[href$='.pdf']:before {
+    content: '\e800';
+}
+
+a[href$='.php']:before {
+    content: '\e802';
+}
+
+a[href^='http']:before {
+    content: '\e807';
+}
+
+a[href^='skype']:before {
+    content: '\53';
+}
+
+a[href^='mailto']:before {
+    content: '📧';
+}
+
+a[href^='https://linkedin.com']:before {
+    content: '\e805';
+}
+
+a[href^='https://github.com']:before {
+    content: '🐱';
+}
+
+a[href^='https://www.facebook.com']:before {
+    content: '\66';
+}
+
+a[href^='https://vk.com']:before {
+    content: '\412';
+}
+
+a[href*='wordpress.com']:before {
+    content: '\e80b';
+}
+
+a[href*='wikipedia.org']:before,
+a[href*='wikiquote.org']:before,
+a[href*='wikiquote.org']:before {
+    content: '\57';
+}
+
+a[href^='https://t.me']:before {
+    content: '\2708';
+}
+
+a[href^='https://www.paypal.com']:before,
+a[href^='https://www.paypal.me']:before {
+    content: '\50';
+}
+
+a[href^='https://stackoverflow.com']:before {
+    content: '\f16c';
+}
+
+a[href*='https://store.steampowered.com']:before,
+a[href^='https://steamcommunity.com']:before {
+    content: '🚂';
+}
+
+a[href^='https://twitter.com']:before {
+    content: '🐦';
+}

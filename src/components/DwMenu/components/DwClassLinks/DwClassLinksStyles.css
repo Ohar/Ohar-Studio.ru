@@ -1,0 +1,31 @@
+.DwClassLinks {
+  margin: 1rem;
+  width: auto;
+  border: 1px solid #000;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.DwClassLinks__title {
+  margin-bottom: 1em;
+  font-size: 2rem;
+  text-align: center;
+}
+.DwClassLinks__headLink {
+  display: block;
+  text-decoration: none;
+}
+.DwClassLinks__headLink:active,
+.DwClassLinks__headLink:hover,
+.DwClassLinks__headLink:focus {
+  background-color: royalblue;
+  color: #fff;
+}
+.DwClassLinks__itemLink:active,
+.DwClassLinks__itemLink:hover,
+.DwClassLinks__itemLink:focus {
+  background-color: royalblue;
+  color: #fff;
+}
+.DwClassLinks__moveList {
+  columns: 2 auto;
+}

@@ -1,0 +1,30 @@
+.menu {
+    border-bottom: 1px solid #fff;
+    background-color: #000;
+}
+.menu_list {
+    margin: 0;
+    padding-left: 0;
+}
+.menu_list_item {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.menu_list_item--language {
+    float: right;
+}
+
+.menu_languageBadge {
+    margin-left: .25rem;
+    color: gold;
+    font-size: .625em;
+    vertical-align: super;
+}
+
+@media (max-width: 64rem) {
+    .menu_list_item--language {
+        float: none;
+    }
+}

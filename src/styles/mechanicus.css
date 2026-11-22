@@ -1,0 +1,87 @@
+/*
+* Логотип
+*/
+.mechanicus {
+  box-sizing: border-box;
+  min-height: calc(100vh - 6em);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mechanicus__logo {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 500px;
+  /* Cog */
+  min-height: 500px;
+  /* Cog */
+  position: relative;
+  padding: 1em;
+}
+.mechanicus__logo:before,
+.mechanicus__logo:after {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  height: 500px;
+  width: 500px;
+  left: calc(50% - 250px);
+}
+.mechanicus__logo:before {
+  background-image: url('../images/am_outside.png');
+  animation-timing-function: cubic-bezier(0.64, -0.42, 0.28, 1.61);
+  animation-name: cog_rotating;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-delay: 1s;
+}
+.mechanicus__logo:after {
+  background-image: url('../images/am_inside.png');
+}
+@media (max-width: 500px) {
+  .mechanicus__logo {
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 1;
+  }
+  .mechanicus__logo:before,
+  .mechanicus__logo:after {
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+@keyframes cog_rotating {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+/*
+    Слоган
+*/
+.mechanicus__motto {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.mechanicus__word {
+  display: block;
+  max-width: calc(100% - 40px);
+  height: auto;
+  margin: 0 20px;
+}

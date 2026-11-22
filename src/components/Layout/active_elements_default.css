@@ -1,0 +1,45 @@
+textarea {
+	display: block;
+	color: gold;
+	border: 1px gold solid;
+	background-color: #000;
+    font-size: 1rem;
+	-webkit-box-shadow: 0 0 0 1px #000;
+	   -moz-box-shadow: 0 0 0 1px #000;
+	        box-shadow: 0 0 0 1px #000;
+}
+
+button,
+.button {
+	color: #fff;
+	border: 1px solid #fff;
+	background-color: #000;
+    font-size: 1rem;
+	-webkit-border-radius: .25em;
+	   -moz-border-radius: .25em;
+	        border-radius: .25em;
+}
+
+.button:not(:disabled):active,
+.button:not(:disabled):focus,
+.button:not(:disabled):hover,
+button:not(:disabled):active,
+button:not(:disabled):focus,
+button:not(:disabled):hover {
+	color: #000;
+	border-color: #000;
+	background-color: #fff;
+}
+
+.button:not(:disabled):active,
+button:not(:disabled):active {
+	-webkit-box-shadow: inset 0 -1px 1px;
+	   -moz-box-shadow: inset 0 -1px 1px;
+	        box-shadow: inset 0 -1px 1px;
+}
+
+.button:disabled,
+button:disabled {
+	border-color: #333;
+    color: #333;
+}

@@ -1,0 +1,26 @@
+.Search {
+  font-size: 2rem;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .Search {
+    font-size: 1rem;
+  }
+}
+.Parapraph {
+  text-align: justify;
+}
+.Parapraph + p {
+  margin-top: 0.2em;
+}
+.ParapraphIndent {
+  text-align: justify;
+}
+.ParapraphIndent + p {
+  margin-top: 0.2em;
+}
+.ParapraphIndent + p {
+  text-indent: 1em;
+}

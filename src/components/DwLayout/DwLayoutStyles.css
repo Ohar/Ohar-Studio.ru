@@ -1,0 +1,30 @@
+.DwLayout {
+  background-color: #fff;
+  color: #000;
+  font-size: 18px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.DwLayout h2 {
+  color: black;
+  text-shadow: none;
+}
+.DwLayout code {
+  color: orange;
+}
+.DwLayout pre {
+  border-left: 1px solid #fff;
+}
+.DwLayout a {
+  color: blue;
+}
+.DwLayout b {
+  color: #000;
+}
+.DwLayout p {
+  margin-bottom: 0.5em;
+}
+.DwLayout .PageTitle {
+  font-size: 5rem;
+  text-align: center;
+}

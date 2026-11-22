@@ -1,0 +1,59 @@
+.quote {
+  max-width: 60em;
+  width: auto;
+  font-size: 1.5em;
+}
+.quote:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+.quote_text {
+  display: block;
+}
+.quote_text:first-letter {
+  text-transform: uppercase;
+}
+.quote_cite {
+  display: block;
+  float: right;
+  font-style: italic;
+}
+.quote_origin {
+  display: inline-block;
+  margin-top: 1em;
+  text-align: right;
+}
+.quote_origin:first-letter {
+  text-transform: uppercase;
+}
+.quote_link {
+  font-size: 1.2em;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 1em;
+}
+.quote_link:hover {
+  text-decoration: underline;
+}
+.quote_link:first-letter {
+  text-transform: uppercase;
+}
+.buttons {
+  text-align: center;
+  font-size: 1.6em;
+}
+.buttons_arrow {
+  margin: 0 1em;
+  padding: 0 0.25em;
+  border-width: 1px;
+  border-style: solid;
+  color: currentColor;
+  border-color: currentColor;
+  border-radius: 0.25em;
+  text-decoration: none;
+}
+.buttons_arrow-inactive {
+  color: transparent;
+  border-color: transparent;
+}

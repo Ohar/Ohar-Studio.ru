@@ -1,0 +1,39 @@
+.Operative {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 1em 0;
+  padding: 1em;
+  border: 2px solid #000;
+  overflow-wrap: anywhere;
+}
+.Operative_header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25em 0.5em;
+  font-weight: bold;
+}
+.Operative_header > :last-child {
+  margin-left: auto;
+}
+.Operative_info {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.Operative_infoCell {
+  padding: 0.25em;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .Operative {
+    padding: 0.75em;
+  }
+  .Operative_info {
+    font-size: 0.7rem;
+  }
+  .Operative_infoCell {
+    padding: 0.2em 0.05em;
+  }
+}

@@ -1,0 +1,4 @@
+* text=auto eol=lf
+index.html -whitespace
+assets/site/** -whitespace
+*.rtf binary

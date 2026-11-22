@@ -1,0 +1,21 @@
+textarea {
+  color: #000;
+  border-color: #000;
+  background-color: #fff;
+}
+button,
+.button {
+  color: #000;
+  border-color: #000;
+  background-color: #fff;
+}
+button:not(:disabled):active,
+.button:not(:disabled):active,
+button:not(:disabled):focus,
+.button:not(:disabled):focus,
+button:not(:disabled):hover,
+.button:not(:disabled):hover {
+  color: #fff;
+  border-color: #fff;
+  background-color: #000;
+}

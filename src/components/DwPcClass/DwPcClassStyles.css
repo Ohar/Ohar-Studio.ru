@@ -1,0 +1,21 @@
+.DwPcClass {
+  box-sizing: border-box;
+}
+.DwPcClass p {
+  margin-bottom: 0.5em;
+}
+.DwPcClass__nameExamples {
+  font-style: italic;
+}
+.DwPcClass__quoteAuthor {
+  display: block;
+  text-align: right;
+  font-style: normal;
+}
+.DwPcClass__section {
+  break-inside: avoid;
+}
+.DwPcClass__equipment li {
+  margin-top: 0.3em;
+  margin-bottom: 0.6em;
+}

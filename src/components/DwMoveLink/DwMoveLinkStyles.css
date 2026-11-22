@@ -1,0 +1,26 @@
+.DwMoveLink {
+  position: relative;
+  font-family: monospace;
+  font-size: 1.1em;
+  text-decoration: none;
+  padding: 0 1px;
+  border-bottom: 2px dashed blue;
+}
+@media print {
+  .DwMoveLink {
+    border: 3px double grey;
+    color: #000 !important;
+    padding: 0 0.3em;
+    border-radius: 0.2em;
+  }
+}
+.DwMoveLink:active,
+.DwMoveLink:focus,
+.DwMoveLink:hover {
+  border-bottom: none;
+  background-color: royalblue;
+  color: #fff;
+}
+.DwMoveLink:visited {
+  color: blue;
+}

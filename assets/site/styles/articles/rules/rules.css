@@ -1,0 +1,35 @@
+b,
+th{
+    color: gold;
+    border-color: gold;
+}
+table,
+td{
+    border-color:#fff;
+}
+table,
+td,
+th{
+    border-width: 1px;
+    border-style: solid;
+    border-collapse: collapse;
+}
+td,
+th{
+    padding: 1em;
+}
+ins,
+del{
+    color: #fff;
+    text-decoration: none;
+}
+ins{
+    background-color: green;
+}
+del{
+    background-color: red;
+    color: #fff;
+}
+li{
+    margin: .5em 0 1em;
+}

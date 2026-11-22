@@ -47,22 +47,43 @@ jobs:
           done
           test "$missing" -eq 0
 
-      - name: Build static site
-        shell: bash
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: yarn
+
+      - name: Install Yarn
         run: |
-          mkdir -p dist
-          cp index.html dist/index.html
-          cp -R assets dist/assets
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Build static site
+        run: yarn build
+
+      - name: Verify generated pages
+        run: yarn test:i18n
+
+      - name: Verify CV PDF page count
+        run: yarn test:cv-pdf
+
+      - name: Verify committed export
+        run: yarn test:published
 
       - name: Smoke test build
         shell: bash
         run: |
-          test -s dist/index.html
-          test -s dist/assets/neon-shift-hero.png
-          test -s dist/assets/rosterama-army-preview.png
-          grep -qi '<title>Ohar Studio — игры и интерактивные проекты</title>' dist/index.html
-          grep -Fq 'https://rosterama.ru/' dist/index.html
-          grep -Fq 'https://yandex.ru/games/app/neon-shift-544710' dist/index.html
+          test -s assets/site/index.html
+          test -s assets/site/404.html
+          test -s assets/neon-shift-hero.png
+          grep -Fq '<title>Ohar</title>' assets/site/index.html
+          grep -Fq 'https://rosterama.ru/' assets/site/portfolio/index.html
+          grep -Fq 'https://yandex.ru/games/app/neon-shift-544710' assets/site/portfolio/index.html
+          grep -Fq 'try_files $uri $uri/ =404;' infra/nginx/ohar-studio.ru.conf
+          grep -Fq 'root /var/www/ohar-studio.ru/current/assets/site;' infra/nginx/ohar-studio.ru.conf
 
       - name: Configure SSH
         shell: bash

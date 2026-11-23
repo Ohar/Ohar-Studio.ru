@@ -67,7 +67,7 @@ jobs:
       - name: Verify generated pages
         run: yarn test:i18n
 
-      - name: Verify CV PDF page count
+      - name: Verify CV PDF generation
         run: yarn test:cv-pdf
 
       - name: Verify deployment archive validation

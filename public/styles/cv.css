@@ -314,11 +314,11 @@
         padding-top: 0;
       }
 
-      .CvPage .compact-history {
+      .CvPage .experience-history {
         display: block;
       }
 
-      .CvPage .compact-history .entry:first-of-type {
+      .CvPage .experience-history .entry:first-of-type {
         border-top: 1px solid var(--line);
         padding-top: 20px;
       }
@@ -711,7 +711,7 @@
           grid-template-columns: 116px minmax(0, 1fr);
           gap: 10px;
           padding: 3px 0;
-          break-inside: auto;
+          break-inside: avoid;
           border-top-color: #e5e8ec;
         }
 
@@ -753,6 +753,10 @@
           border-top: 1px solid #e5e8ec;
         }
 
+        .CvPage .experience-history .entry:first-of-type {
+          padding-top: 3px;
+        }
+
         .CvPage .compact-history .entry {
           display: block;
           padding: 4px 5px;
@@ -766,7 +770,7 @@
           display: none;
         }
 
-        .CvPage .old-experience-summary {
+        .CvPage .compact-history .old-experience-summary {
           display: block;
           padding: 4px 5px;
           border: 1px solid #e5e8ec;
@@ -777,7 +781,7 @@
           break-inside: avoid;
         }
 
-        .CvPage .old-experience-summary strong {
+        .CvPage .compact-history .old-experience-summary strong {
           display: block;
           margin-bottom: 1px;
           font-size: 8.5px;

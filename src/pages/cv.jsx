@@ -14,6 +14,9 @@ const linkProps = {
 
 const languages = ["ru", "en"]
 
+// Enable to condense older experience and replace legacy roles with a print summary.
+const COMPACT_EXPERIENCE_ENABLED = false
+
 const ExternalLink = ({ href, children }) => (
   <a href={href} {...linkProps}>
     {children}
@@ -183,7 +186,13 @@ const Experience = ({ data }) => (
         key={`${entry.title}-${entry.printDate}`}
       />
     ))}
-    <div className="compact-history">
+    <div
+      className={
+        COMPACT_EXPERIENCE_ENABLED
+          ? "experience-history compact-history"
+          : "experience-history"
+      }
+    >
       {data.compactExperience.map((entry) => (
         <ExperienceEntry
           entry={entry}

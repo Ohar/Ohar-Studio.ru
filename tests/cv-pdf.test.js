@@ -130,9 +130,9 @@ function countPdfPages(pdf) {
 }
 
 test(
-  "both CV languages fit on one A4 PDF page",
+  "both CV languages generate non-empty PDFs without a page limit",
   { timeout: 60_000 },
-  async () => {
+  async (t) => {
     assert.ok(
       existsSync(path.join(outputDir, "cv", "index.html")),
       "Build the site before running the CV PDF test"
@@ -156,15 +156,13 @@ test(
         const pdf = await readFile(pdfPath)
         const pageCount = countPdfPages(pdf)
 
-        assert.ok(
-          pageCount > 0,
-          `Could not determine the ${language} PDF page count`
-        )
         assert.equal(
-          pageCount,
-          1,
-          `Expected one ${language} PDF page, received ${pageCount}`
+          pdf.subarray(0, 5).toString(),
+          "%PDF-",
+          `${language} output must be a PDF`
         )
+        assert.ok(pageCount > 0, `Expected at least one ${language} PDF page`)
+        t.diagnostic(`${language}: ${pageCount} PDF pages`)
       }
     } finally {
       await new Promise((resolve) => server.close(resolve))

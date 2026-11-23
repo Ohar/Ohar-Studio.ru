@@ -32,6 +32,7 @@ const cvData = {
     contacts: [
       { label: 'Email', href: 'mailto:job@ohar.name', value: 'job@ohar.name' },
       { label: 'Телефон', href: 'tel:+79852685323', value: '+7 (985) 268-53-23' },
+      { label: 'Telegram', href: 'https://t.me/Oharr', value: '@Oharr', external: true },
       { label: 'GitHub', href: 'https://github.com/Ohar', value: 'github.com/Ohar', external: true },
     ],
     targetTitle: 'Желаемая должность',
@@ -303,6 +304,7 @@ const cvData = {
     contacts: [
       { label: 'Email', href: 'mailto:job@ohar.name', value: 'job@ohar.name' },
       { label: 'Phone', href: 'tel:+79852685323', value: '+7 (985) 268-53-23' },
+      { label: 'Telegram', href: 'https://t.me/Oharr', value: '@Oharr', external: true },
       { label: 'GitHub', href: 'https://github.com/Ohar', value: 'github.com/Ohar', external: true },
     ],
     targetTitle: 'Desired position',

@@ -129,6 +129,10 @@ const Company = ({ entry }) => (
   </p>
 )
 
+const Description = ({ item }) => (
+  <p key={item} dangerouslySetInnerHTML={{ __html: item }} />
+)
+
 const RoleList = ({ roles }) => (
   <div className="role-list">
     {roles.map((role) => (
@@ -139,7 +143,7 @@ const RoleList = ({ roles }) => (
           <span className="date-print">{role.printDate}</span>
         </p>
         {role.description.map((item) => (
-          <p key={item}>{item}</p>
+          <Description item={item} />
         ))}
         <p className="stack">{role.stack}</p>
       </div>
@@ -162,7 +166,7 @@ const ExperienceEntry = ({ entry, className = "entry" }) => (
       ) : (
         <>
           {entry.description.map((item) => (
-            <p key={item}>{item}</p>
+            <Description item={item} />
           ))}
           <p className="stack">{entry.stack}</p>
         </>

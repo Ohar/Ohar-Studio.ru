@@ -70,7 +70,7 @@ const cvData = {
             screenDate: 'Июнь 2026 — Август 2026',
             printDate: '2026-06 – 2026-08',
             description: [
-              'Игра-раннер, опубликована в Яндекс.Играх (https://yandex.ru/games/app/neon-shift-544710), VK и в Telegram.',
+              'Игра-раннер, опубликована в <a href="https://yandex.ru/games/app/neon-shift-544710" rel="nofollow noopener" target="_blank">Яндекс.Играх</a>, <a href="https://vk.ru/app54660255" rel="nofollow noopener" target="_blank">ВК</a> и в Telegram.',
               'Основная аудитория — телевизоры.',
               'Подключил рекламную монетизацию площадок.',
             ],
@@ -413,7 +413,9 @@ const cvData = {
             screenDate: 'June 2026 - August 2026',
             printDate: '2026-06 - 2026-08',
             description: [
-              'Runner game published on Yandex Games (https://yandex.ru/games/app/neon-shift-544710), VK and as a Telegram Mini App. Most players use TVs. Monetized through platform advertising.',
+              'Runner game published on <a href="https://yandex.ru/games/app/neon-shift-544710" rel="nofollow noopener" target="_blank">Yandex Games</a>, <a href="https://vk.com/app54660255" rel="nofollow noopener" target="_blank">VK</a> and as a Telegram Mini App.',
+              'Most players use TVs.',
+              'Monetized through platform ads.',
             ],
             stack: 'TypeScript/JavaScript, Nginx, ESLint, CSS 3, API, GitHub Actions, autotests, CI/CD, Google Analytics.',
           },

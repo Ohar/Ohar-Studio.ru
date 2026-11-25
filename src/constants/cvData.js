@@ -50,8 +50,33 @@ const cvData = {
         duration: '5 месяцев',
         title: 'Product Owner',
         company: 'Собственные проекты (ИП)',
-        companyUrl: 'https://rosterama.ru/',
-        companyUrlText: 'Rosterama.ru',
+        companyUrl: 'https://ohar-studio.ru/',
+        companyUrlText: 'Ohar-Studio.ru',
+        roles: [
+          {
+            title: 'Rosterama.ru',
+            screenDate: 'Июль 2026 — сейчас',
+            printDate: '2026-07 – 2026-11',
+            description: [
+              'Сайт и Telegram-бот, хобби-проект для настольных варгеймов: парсинг текста, генерация картинок.',
+              'Настроен оркестратор (раннер), забирающий ишью с Github и отдающий агентам (OpenAI, Gemini, DeepSeek) на исполнение, с отдачей контекста через RAG (LanceDB), что уменьшило трату входящих токенов до 60+%.',
+              'Генерация изображений (Sharp), интеграция с внешним API, VPS Ubuntu. SSR и кеширование (Next.js), REST API (Fastify), Nginx. Серверные правки дополнительно проверяет отдельный агент-безопасник, есть нагрузочный бенчмарк скорости генерации изображений внутри CI/CD. Локализация на английский (use-intl, i18n).',
+              'Подключил подписочную монетизацию CloudPayments.',
+            ],
+            stack: 'TypeScript/JavaScript, React, Next.js, Node.js, Nginx, PostgreSQL, Docker, Python, RAG (LanceDB), ESLint, RxJS, Vite, Vitest, Fastify, Sharp, Zod, CSS Modules, REST API, Cheerio, Codex CLI, Gemini CLI, GitHub Actions, автотесты, CI/CD, Яндекс Метрика, Telegram Bot.',
+          },
+          {
+            title: 'Neon Shift',
+            screenDate: 'Июнь 2026 — Август 2026',
+            printDate: '2026-06 – 2026-08',
+            description: [
+              'Игра-раннер, опубликована в Яндекс.Играх (https://yandex.ru/games/app/neon-shift-544710), VK и в Telegram.',
+              'Основная аудитория — телевизоры.',
+              'Подключил рекламную монетизацию площадок.',
+            ],
+            stack: 'TypeScript/JavaScript, Nginx, ESLint, HTML5, CSS 3, API, GitHub Actions, автотесты, CI/CD, Яндекс Метрика, Telegram Mini Apps, Telegram Bot.',
+          },
+        ],
         description: [
           'Rosterama.ru',
           'Сайт и Telegram-бот, хобби-проект для настольных варгеймов: парсинг текста, генерация картинок.',
@@ -369,17 +394,30 @@ const cvData = {
         company: 'Pet projects',
         companyUrl: 'https://rosterama.com',
         companyUrlText: 'Rosterama.com',
-        description: [
-          'Spec-Driven Development with Codex.',
-          'Website and Telegram bot that turn text-based tabletop wargame army rosters into panoramic images with labelled units. Supports 15+ input formats.',
-          'Configured an orchestrator (runner) that picks up GitHub Issues and assigns tasks to agents: Codex CLI, Gemini CLI 0.65.0 and DeepSeek 4.1 Flash. Providing context through RAG with LanceDB reduced token usage by 60+%.',
-          'Image composition via Sharp, external API integrations. Hosted on an Ubuntu VPS at Selectel, with SSR and caching in Next.js, a Fastify API and Nginx as the web server.',
-          'Subscription monetization through CloudPayments.',
-          '',
-          'Neon Shift (https://yandex.ru/games/app/neon-shift-544710)',
-          'Runner game published on Yandex Games, VK and as a Telegram Mini App. Most players use TVs. Monetized through platform advertising.',
+        roles: [
+          {
+            title: 'Rosterama.com',
+            screenDate: 'July 2026 - November 2026',
+            printDate: '2026-07 - 2026-11',
+            description: [
+              'Spec-Driven Development with Codex.',
+              'Website and Telegram bot that turn text-based tabletop wargame army rosters into panoramic images with labelled units. Supports 15+ input formats.',
+              'Configured an orchestrator (runner) that picks up GitHub Issues and assigns tasks to agents: Codex CLI, Gemini CLI 0.65.0 and DeepSeek 4.1 Flash. Providing context through RAG with LanceDB reduced token usage by 60+%.',
+              'Image composition via Sharp, external API integrations. Hosted on an Ubuntu VPS at Selectel, with SSR and caching in Next.js, a Fastify API and Nginx as the web server.',
+              'Subscription monetization through CloudPayments.',
+            ],
+            stack: 'TypeScript/JavaScript, React, Next.js, Node.js, Nginx, PostgreSQL, Docker, Python, RAG (LanceDB), ESLint, RxJS, Vite, Fastify, Sharp, Zod, Cheerio, CSS Modules, REST API, Codex CLI, Gemini CLI, GitHub Actions, autotests, CI/CD, Google Analytics.',
+          },
+          {
+            title: 'Neon Shift',
+            screenDate: 'June 2026 - August 2026',
+            printDate: '2026-06 - 2026-08',
+            description: [
+              'Runner game published on Yandex Games (https://yandex.ru/games/app/neon-shift-544710), VK and as a Telegram Mini App. Most players use TVs. Monetized through platform advertising.',
+            ],
+            stack: 'TypeScript/JavaScript, Nginx, ESLint, CSS 3, API, GitHub Actions, autotests, CI/CD, Google Analytics.',
+          },
         ],
-        stack: 'TypeScript/JavaScript, React, Next.js, Node.js, Nginx, PostgreSQL, Docker, Python, RAG (LanceDB), ESLint, RxJS, Vite, Fastify, Sharp, Zod, Cheerio, CSS Modules, REST API, Codex CLI, Gemini CLI, GitHub Actions, autotests, CI/CD, Google Analytics.',
       },
       {
         screenDate: 'June 2024 - June 2026',

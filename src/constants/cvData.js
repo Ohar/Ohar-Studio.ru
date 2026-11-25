@@ -392,8 +392,8 @@ const cvData = {
         duration: '5 months',
         title: 'Product Owner',
         company: 'Pet projects',
-        companyUrl: 'https://rosterama.com',
-        companyUrlText: 'Rosterama.com',
+        companyUrl: 'https://ohar-studio.ru',
+        companyUrlText: 'Ohar-Studio.ru',
         roles: [
           {
             title: 'Rosterama.com',

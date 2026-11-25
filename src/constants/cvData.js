@@ -425,8 +425,8 @@ const cvData = {
         duration: '2 years 1 month',
         title: 'Senior Frontend Developer',
         company: 'Wildberries, Moscow',
-        companyUrl: 'https://career.wb.ru/',
-        companyUrlText: 'career.wb.ru',
+        companyUrl: 'https://wildberries.ru/',
+        companyUrlText: 'Wildberries.ru',
         description: [
           'Developed key interfaces for an internal A/B testing platform used by 500+ analysts: experiment setup flows, analytical dashboards, test result visualization, and statistical metrics. Built a Chrome Extension for validating experimental scenarios on wildberries.ru, integrated with the platform through OAuth and internal APIs.',
         ],

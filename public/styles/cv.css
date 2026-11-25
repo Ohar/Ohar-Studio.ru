@@ -29,9 +29,13 @@
       }
 
       .CvPage a {
-        color: inherit;
+        color: magenta;
         text-decoration-color: rgba(180, 35, 43, 0.45);
         text-underline-offset: 3px;
+      }
+
+      .CvPage a:visited {
+        color: darkviolet;
       }
 
       .CvPage .toolbar {
